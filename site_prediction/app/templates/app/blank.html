@@ -20,9 +20,25 @@
           </ol>
 
           <!-- Page Content -->
-          <h1>Blank Page</h1>
+          <h1>Predicción de ventas para el Black Friday</h1>
           <hr>
           <p>This is a great starting point for new custom pages.</p>
+          <p>Dataset disponible:</p>
+          <ul>
+            {% for obj in documents %}
+              <li>
+                <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
+                <small>(Uploaded at: {{ obj.updated }})</small>
+                <small>(Created at: {{ obj.created }})</small>
+              </li>
+            {% endfor %}
+          </ul>
+          <div class="row">
+            <div class="col-md-9">
+              {{preview|safe}}
+
+            </div>
+          </div>
 
         </div>
         <!-- /.container-fluid -->

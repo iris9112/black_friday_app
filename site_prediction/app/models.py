@@ -4,10 +4,13 @@ from django.db import models
 
 
 class Document(models.Model):
+    """
+    Modelo para almacenar un archivo .csv
+    """
     name = models.CharField(max_length=255, blank=True, verbose_name="Nombre documento")
     document = models.FileField(upload_to='documents/', verbose_name="Documento")   
     created = models.DateTimeField(auto_now_add=True, verbose_name="Fecha de creación")
     updated = models.DateTimeField(auto_now=True, verbose_name="Fecha de edición")
 
     def __str__(self):
-        return '{0.name} - {0.updated}'.format(self)
+        return self.name
