@@ -102,3 +102,10 @@ venv.bak/
 
 # mypy
 .mypy_cache/
+
+
+# media
+site_prediction/media
+
+# migrations
+site_prediction/app/migrations/*

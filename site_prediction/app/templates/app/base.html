@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>BlackFriday - Dashboard</title>
+    {% load static %}
+
+    <!-- Bootstrap core CSS-->
+    <link href="{% static 'app/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Page level plugin CSS-->
+    <link href="{% static 'app/vendor/datatables/dataTables.bootstrap4.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link href="{% static 'app/css/sb-admin.css' %}" rel="stylesheet">
+
+  </head>
+
+  <body id="page-top">
+
+    <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+      <a class="navbar-brand mr-1" href="{% url 'index' %}">Black Friday Prediction</a>
+
+      <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+        <i class="fa fa-bars"></i>
+      </button>
+
+    </nav>
+
+    <div id="wrapper">
+
+      <!-- Sidebar -->
+      <ul class="sidebar navbar-nav">
+        <li class="nav-item active">
+          <a class="nav-link" href="{% url 'index' %}">
+            <i class="fa fa-tachometer"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'blank' %}">
+              <i class="fa fa-folder-open"></i>
+              <span>Datasets</span></a>
+          </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'charts' %}">
+            <i class="fa fa-area-chart"></i>
+            <span>Charts</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'tables' %}">
+            <i class="fa fa-table"></i>
+            <span>Tables</span></a>
+        </li>
+      </ul>
+
+      {% block content %} {% endblock %}
+
+      <!-- Sticky Footer -->
+        <footer class="sticky-footer">
+          <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+              <span>Copyright © Your Website 2018</span>
+            </div>
+          </div>
+        </footer>
+
+      </div>
+      <!-- /.content-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+      <i class="fas fa-angle-up"></i>
+    </a>
+
+
+    <!-- Bootstrap app JavaScript-->
+    <script src="{% static 'app/vendor/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'app/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- app plugin JavaScript-->
+    <script src="{% static 'app/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
+
+    <!-- Page level plugin JavaScript-->
+    <script src="{% static 'app/vendor/chart.js/Chart.min.js' %}"></script>
+    <script src="{% static 'app/vendor/datatables/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'app/vendor/datatables/dataTables.bootstrap4.js' %}"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="{% static 'app/js/sb-admin.min.js' %}"></script>
+
+    <!-- Demo scripts for this page-->
+    <script src="{% static 'app/js/demo/datatables-demo.js' %}"></script>
+    <script src="{% static 'app/js/demo/chart-area-demo.js' %}"></script>
+
+    {% block extra_js %}{% endblock %}
+
+
+  </body>
+
+</html>
