@@ -2,18 +2,20 @@
 
 ## Problema
 
-Un alto directivo de la empresa X está solicitando a nuestro equipo de ingenieros desarrollar un sistema que permita predecir información relevante para el próximo Blackfriday que se llevará a cabo en noviembre 23 del 2018, tomando como base los datos de ventas del blackfriday del año pasado que se llevó a cabo en noviembre 24 2017. 
+[Ir a pasos](#pasos-para-ejecutar-el-proyecto)
+
+Un alto directivo de la empresa X está solicitando a nuestro equipo de ingenieros desarrollar un sistema que permita predecir información relevante para el próximo Blackfriday que se llevará a cabo en noviembre 23 del 2018, tomando como base los datos de ventas del blackfriday del año pasado que se llevó a cabo en noviembre 24 2017.
 
 El sistema debe ser capaz de responder las siguientes preguntas de forma gráfica y tabular (en tablas):
 
 1. Unidades que se venderán por producto.
-2. Total de ventas (valor de ventas) por producto en pesos. 
-3. Top de compradores. 
+2. Total de ventas (valor de ventas) por producto en pesos.
+3. Top de compradores.
 4. ¿Nos comprarán más las personas solteras o las personas casadas? (en el dataset asumimos casadas como 1).
-5. ¿Nos comprarán más los hombres o las mujeres? 
+5. ¿Nos comprarán más los hombres o las mujeres?
 6. Clasifique por edades, que producto que se venderá más.
 
-Para calcular los pesos se debe predecir el valor del dólar efectuando una regresión con los datos de dataset: TRM_Historico.xls 
+Para calcular los pesos se debe predecir el valor del dólar efectuando una regresión con los datos de dataset: TRM_Historico.xls
 * Se recomienda la librería [Bokeh](https://bokeh.pydata.org/en/latest/)
 
 ## Requerimientos
@@ -25,7 +27,7 @@ Para calcular los pesos se debe predecir el valor del dólar efectuando una regr
 ## Observaciones
 
 #### TRM
-La TRM es la Tasa Representativa del Mercado cambiario de Colombia y representa el valor que tiene un dólar estadounidense en pesos colombianos. 
+La TRM es la Tasa Representativa del Mercado cambiario de Colombia y representa el valor que tiene un dólar estadounidense en pesos colombianos.
 
 #### Limitantes
 - Detalle del crecimiento de la población:
@@ -65,7 +67,7 @@ De la exploración de datos identificamos las siguientes variables del conjunto:
 - Occupation: id de la ocupación del usuario. Variable tipo `int`.
 - City_Category: Categoria de la ciudad. Se usa la codificación One-Hot.
 - Stay_In_Current_City_Years: Número de años que ha estado en la ciudad. Se normaliza a variable tipo `int`.
-- Marital_Status: Estado civil. Es una variable binaria. 
+- Marital_Status: Estado civil. Es una variable binaria.
 - Product_Category_1: Categoria del producto. Variable tipo `int`.
 - Product_Category_2 y Product_Category_3: Son categorias del producto. Tienen valores nulos y no es significativa para la predicción, por lo que la eliminaremos del conjunto de datos
 - Purchase: precio de la compra del producto. Variable tipo `int`. Nuestro TARGET
@@ -88,7 +90,7 @@ stay_city_years_dict = {'0':0, '1':1, '2':2, '3':3, '4+':4}
 ## 4. Generar modelos de predicción
 
 Antes de realizar los modelos, separamos el conjunto en datos de entrenamiento y datos de prueba.
-Se utilizaron modelos de regresión lineal, cross validation y XGBoost
+Se utilizaron modelos de regresión lineal con XGBoost
 
 
 ## 5. Bringing it all together
@@ -103,7 +105,7 @@ Vamos a realizar un backend con django para responder a las preguntas de forma g
 
 2. Descargar el codigo de la carpeta site_prediction
 
-3. Hacer migraciones 
+3. Hacer migraciones
 ```python
     python manage.py makemigrations
 ```
