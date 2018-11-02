@@ -113,12 +113,7 @@ Vamos a realizar un backend con django para responder a las preguntas de forma g
     python manage.py migrate
 ```
 
-5. Cargar conjunto de datos
-```python
-    pip script_initial.py
-```
-
-6. Correr el proyecto
+5. Correr el proyecto y Cargar conjunto de datos con el formulario.
 ```python
     python manage.py runserver
 ```
