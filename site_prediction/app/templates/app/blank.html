@@ -22,20 +22,22 @@
           <!-- Page Content -->
           <h1>Predicción de ventas para el Black Friday</h1>
           <hr>
-          <p>This is a great starting point for new custom pages.</p>
-          <p>Dataset disponible:</p>
+          <p>¡Bienvenido!</p>
+          <p>A continuación puedes ver el último dataset disponible:</p>
           <ul>
-            {% for obj in documents %}
+            {% if document %}
               <li>
-                <a href="{{ obj.document.url }}">{{ obj.document.name }}</a>
-                <small>(Uploaded at: {{ obj.updated }})</small>
-                <small>(Created at: {{ obj.created }})</small>
+                <a href="{{ document.url }}">{{ document.name }}</a>
+                <small>(Uploaded at: {{ document.updated }})</small>
+                <small>(Created at: {{ document.created }})</small>
               </li>
-            {% endfor %}
+            {% else %}
+            <p>Estimado usuario, por favor ve al panel de administración y carga un documento para comenzar el proceso.</p>
+            {% endif %}
           </ul>
           <div class="row">
-            <div class="col-md-9">
-              {{preview|safe}}
+            <div class="col-md-12 col-xs-10 table-responsive">
+              {{ preview| safe}}
 
             </div>
           </div>
