@@ -36,12 +36,12 @@ class ChartsView(TemplateView):
 class TablesView(TemplateView):
     template_name = "app/tables.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        # trabajamos siempre sobre el ultimo dataset
-        document = Document.objects.all().last()
-        # esto seria más util como un detail view
-        context['prediction'] = prediction(document)
-
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     # trabajamos siempre sobre el ultimo dataset
+    #     document = Document.objects.all().last()
+    #     # esto seria más util como un detail view
+    #     context['prediction'] = prediction(document)
+    #
+    #     return context

@@ -28,21 +28,35 @@
             {% if document %}
               <li>
                 <a href="{{ document.url }}">{{ document.name }}</a>
-                <small>(Uploaded at: {{ document.updated }})</small>
-                <small>(Created at: {{ document.created }})</small>
+                <small>(Actualizado en: {{ document.updated }})</small>
+                <small>(Creado en: {{ document.created }})</small>
               </li>
             {% else %}
             <p>Estimado usuario, por favor ve al panel de administración y carga un documento para comenzar el proceso.</p>
             {% endif %}
           </ul>
           <div class="row">
-            <div class="col-md-12 col-xs-10 table-responsive">
+            <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
               {{ preview| safe}}
 
             </div>
-          </div>
 
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <h2>Generar modelo de Predicción</h2>
+              <p>Para generar el modelo de predicción por favor pulsa este botón y espera unos segundos</p>
+              <br>
+              <form class="" action="#" method="#">
+                {% csrf_token %}
+                <button type="submit" name="button">Generar modelo</button>
+              </form>
+              <br><br>
+              <p>Después de generado el modelo, puedes observar los resultados en: </p>
+              <ul>
+                <li>De forma grafica en: <a href="#">Charts</a></li>
+                <li>En tablas en: <a href="#">Tables</a></li>
+              </ul>
+            </div>
+          </div>
         </div>
         <!-- /.container-fluid -->
-
 {% endblock %}
