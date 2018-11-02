@@ -5,7 +5,7 @@ from django.conf import settings
 from .models import Document
 from .utils import previewDataFrame, prediction
 
-
+# https://www.hackerearth.com/practice/notes/bokeh-interactive-visualization-library-use-graph-with-django-template/
 
 # Create your views here.
 
