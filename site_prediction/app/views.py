@@ -1,3 +1,4 @@
+from django.http import HttpResponse
 from django.shortcuts import render_to_response, render
 from django.views.generic.base import TemplateView
 from django.conf import settings
@@ -59,12 +60,17 @@ class ChartsView(TemplateView):
 class TablesView(TemplateView):
     template_name = "app/tables.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #
-    #     # trabajamos siempre sobre el ultimo dataset
-    #     document = Document.objects.all().last()
-    #     # esto seria más util como un detail view
-    #     context['prediction'] = prediction(document)
-    #
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        df = read_csv('solution.csv')
+        context['preview'] = df.head().to_html(classes="table", index=False)
+
+        return context
+    
+
+def PredictionView(request):
+    # trabajamos siempre sobre el ultimo dataset
+    document = Document.objects.all().last()
+    # esto seria más util como un detail view
+    prediction(document)
+    return HttpResponse("Tu modelo de prediccion ha sido generado, Por favor regresa al sitio. ")

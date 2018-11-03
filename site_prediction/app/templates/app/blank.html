@@ -45,15 +45,20 @@
               <h2>Generar modelo de Predicción</h2>
               <p>Para generar el modelo de predicción por favor pulsa este botón y espera unos segundos</p>
               <br>
-              <form class="" action="#" method="#">
+              <!-- pendiente construir formulario 
+              <form class="form" action="#" method="#">
                 {% csrf_token %}
-                <button type="submit" name="button">Generar modelo</button>
+                <button class="btn-primary"  data-url="" type="button" name="button">Generar modelo</button>
               </form>
+              -->
+
+              <button class="btn-primary"  data-url="{% url 'prediction' %}" type="button" name="button">Generar modelo</button>
+
               <br><br>
               <p>Después de generado el modelo, puedes observar los resultados en: </p>
               <ul>
-                <li>De forma grafica en: <a href="#">Charts</a></li>
-                <li>En tablas en: <a href="#">Tables</a></li>
+                <li>De forma grafica en: <a href="{% url 'charts' %}">Charts</a></li>
+                <li>En tablas en: <a href="{% url 'tables' %}">Tables</a></li>
               </ul>
             </div>
           </div>
