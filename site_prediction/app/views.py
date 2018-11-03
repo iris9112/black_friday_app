@@ -11,10 +11,6 @@ from .utils import previewDataFrame, prediction, read_csv
 
 # Create your views here.
 
-class index(TemplateView):
-    template_name = "app/index.html"
-
-
 class BlankView(TemplateView):
     template_name = "app/blank.html"
 
