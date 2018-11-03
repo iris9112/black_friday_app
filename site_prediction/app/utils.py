@@ -112,3 +112,7 @@ def prediction(doc):
     # df_solution = pd.read_csv(settings.MEDIA_ROOT + '/documents/Solution.csv')
 
     return test_X.head().to_html(classes="table", index=False)
+
+
+# plot chart 
+

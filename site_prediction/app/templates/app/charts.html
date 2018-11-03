@@ -1,5 +1,5 @@
 {% extends 'app/base.html' %}
-
+{% load humanize %}
 {% load static %}
 
 {% block title %}Inicio{% endblock %}
@@ -13,58 +13,176 @@
           <!-- Breadcrumbs-->
           <ol class="breadcrumb">
             <li class="breadcrumb-item">
-              <a href="#">Dashboard</a>
+              Dashboard
             </li>
             <li class="breadcrumb-item active">Charts</li>
           </ol>
 
-          <!-- Area Chart Example-->
-          <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-chart-area"></i>
-              Area Chart Example</div>
-            <div class="card-body">
-              <canvas id="myAreaChart" width="100%" height="30"></canvas>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
-          </div>
+        
+
+       
 
           <div class="row">
             <div class="col-lg-8">
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-chart-bar"></i>
-                  Bar Chart Example</div>
+                  Compras por Genero</div>
                 <div class="card-body">
                   <canvas id="myBarChart" width="100%" height="50"></canvas>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div class="card-footer small text-muted">Predicción para el año 2018.</div>
               </div>
             </div>
             <div class="col-lg-4">
               <div class="card mb-3">
                 <div class="card-header">
                   <i class="fas fa-chart-pie"></i>
-                  Pie Chart Example</div>
+                  Compras por estado Civil</div>
+                <div>
+                 Personas Solteras: {{marital_0|intcomma}} <br>
+                 Personas Casadas: {{marital_1|intcomma}}
+                  
+                </div>
                 <div class="card-body">
                   <canvas id="myPieChart" width="100%" height="100"></canvas>
                 </div>
-                <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+                <div class="card-footer small text-muted">Predicción para el año 2018.</div>
               </div>
             </div>
           </div>
 
+             <!-- Area Chart Example-->
+          <div class="card mb-3">
+              <div class="card-header">
+                <i class="fas fa-chart-area"></i>
+                Compras por rango de edad</div>
+              <div class="card-body">
+                <canvas id="ageChart" width="100%" height="30"></canvas>
+              </div>
+              <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+          </div>
+
           <p class="small text-center text-muted my-5">
-            <em>More chart examples coming soon...</em>
+            <em>Visualización con Bokeh en camino 3, 2, 1 ...</em>
           </p>
 
         </div>
         <!-- /.container-fluid -->
   {% block extra_js %}
-    <!-- Demo scripts for this page-->
-    <script src="{% static 'app/js/demo/chart-area-demo.js' %}"></script>
-    <script src="{% static 'app/js/demo/chart-bar-demo.js' %}"></script>
-    <script src="{% static 'app/js/demo/chart-pie-demo.js' %}"></script>
-  {% endblock %}
+
+  <script>
+    // Set new default font family and font color to mimic Bootstrap's default styling
+    Chart.defaults.global.defaultFontFamily = '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+    Chart.defaults.global.defaultFontColor = '#292b2c';
+
+    // Pie Chart Example
+    var ctx = document.getElementById("myPieChart");
+    var myPieChart = new Chart(ctx, {
+      type: 'pie',
+      data: {
+        labels: ["Personas Solteras", "Personas Casadas"],
+        datasets: [{
+          data: [{{marital_0|intcomma}}, {{marital_1|intcomma}}],
+          backgroundColor: ['#007bff', '#dc3545'],
+        }],
+      },
+    });
+
+// Bar Chart Example
+var ctx = document.getElementById("myBarChart");
+var myLineChart = new Chart(ctx, {
+  type: 'bar',
+  data: {
+    labels: ["Femenino", "Masculino"],
+    datasets: [{
+      label: "Cantidad",
+      backgroundColor: "rgba(2,117,216,1)",
+      borderColor: "rgba(2,117,216,1)",
+      data: [{{M}}, {{F}}],
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        time: {
+          unit: 'Genero'
+        },
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 2
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 100000,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          display: true
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+// Area Chart Example
+var ctx = document.getElementById("ageChart");
+var myLineChart = new Chart(ctx, {
+  type: 'line',
+  data: {
+    labels: ['26-35', '36-45', '18-25', '46-50', '51-55', '55+', '0-17'],
+    datasets: [{
+      label: "Rango edad",
+      lineTension: 0.3,
+      backgroundColor: "rgba(2,117,216,0.2)",
+      borderColor: "rgba(2,117,216,1)",
+      pointRadius: 7,
+      pointBackgroundColor: "rgba(2,117,216,1)",
+      pointBorderColor: "rgba(255,255,255,0.8)",
+      pointHoverRadius: 7,
+      pointHoverBackgroundColor: "rgba(2,117,216,1)",
+      pointHitRadius: 50,
+      pointBorderWidth: 2,
+      data: {{data_age}},
+    }],
+  },
+  options: {
+    scales: {
+      xAxes: [{
+        gridLines: {
+          display: false
+        },
+        ticks: {
+          maxTicksLimit: 7
+        }
+      }],
+      yAxes: [{
+        ticks: {
+          min: 0,
+          max: 60000,
+          maxTicksLimit: 5
+        },
+        gridLines: {
+          color: "rgba(0, 0, 0, .125)",
+        }
+      }],
+    },
+    legend: {
+      display: false
+    }
+  }
+});
+
+ </script>
+
+  
+{% endblock %}
 
 {% endblock %}

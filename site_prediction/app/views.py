@@ -1,11 +1,12 @@
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, render
 from django.views.generic.base import TemplateView
 from django.conf import settings
 
-from .models import Document
-from .utils import previewDataFrame, prediction
+from bokeh.plotting import figure, output_file, show 
+from bokeh.embed import components
 
-# https://www.hackerearth.com/practice/notes/bokeh-interactive-visualization-library-use-graph-with-django-template/
+from .models import Document
+from .utils import previewDataFrame, prediction, read_csv
 
 # Create your views here.
 
@@ -23,7 +24,7 @@ class BlankView(TemplateView):
         document = Document.objects.all().last()
         context["document"] = document
 
-        # esto seria más util como un detail view
+        # TODO: esto seria más util como un detail view
         context['preview'] = previewDataFrame(document)
 
         return context
@@ -32,6 +33,28 @@ class BlankView(TemplateView):
 class ChartsView(TemplateView):
     template_name = "app/charts.html"
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        df = read_csv('solution.csv')
+
+        # marital status
+        df_marital = df['Marital_Status'].value_counts()
+        context['marital_0'] = df_marital[0]
+        context['marital_1'] = df_marital[1]
+
+        # gender
+        df_gender = df['Gender'].value_counts()
+        context['M'] = df_gender[0]
+        context['F'] = df_gender[1]
+
+        # age
+        age = df['Age'].value_counts()
+        values = list(age)
+        # [53604, 26739, 24452, 11188, 9463, 5294, 3655]
+        # [2, 3, 1, 4, 5, 6, 0]
+        context['data_age'] = values
+
+        return context
 
 class TablesView(TemplateView):
     template_name = "app/tables.html"

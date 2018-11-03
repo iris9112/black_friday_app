@@ -37,7 +37,7 @@ Esta predicción no toma en cuenta nuevos usuarios ni el crecimiento de la pobla
 Se actualiza la versión del _framework Django_ a la **2.1.2** debido a que en la versión **2.1** se reporto recientemente un fuerte problema de seguridad.
 
 #### Base de datos
-Por rapidez se trabaja con sqlite, ya que solo se requiere para guardar el conjunto de datos.
+Por rapidez se trabaja con sqlite, ya que solo se requiere para guardar el archivo de datos csv.
 
 # Solución
 
