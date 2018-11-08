@@ -1,7 +1,7 @@
 import pandas as pd
 import numpy as np
 import xgboost as xgb
-from sklearn import ensemble # validar
+from sklearn import ensemble
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.ensemble import GradientBoostingRegressor
 from sklearn.model_selection import train_test_split
@@ -14,11 +14,8 @@ from .models import Document
 
 def previewDataFrame(doc):
     """
-    preview a dataframe in a template
+    preview a dataframe from model document in a template
     """
-    # tomar siempre el ultimo dataset
-
-
     # creando el data frame
     df = pd.read_csv(doc.document.path)
     df.drop('Product_Category_2', axis=1, inplace=True)
@@ -28,16 +25,19 @@ def previewDataFrame(doc):
 
     return df.head().to_html(classes="table", index=False)
 
+
 def read_csv(doc):
     """
     Lee un archivo css de la carpeta media/documents y lo convierte en un dataframe
     """
-    df = pd.read_csv(settings.MEDIA_ROOT + '/documents/' + doc)
+    df = pd.read_csv(settings.MEDIA_ROOT + '/documents/' + doc, sep=',', converters={'Purchase':str})
     return df
 
-# ----------------------------------------------------------
-# prepare and organize the data
+
 def prediction(doc):
+    """
+    Modelo de prediccion para ventas del blackfriday
+    """
     # cargar datos
     doc = Document.objects.all().last()
     df = pd.read_csv(doc.document.path)
@@ -109,10 +109,58 @@ def prediction(doc):
     train_X['Purchase']=train_y
     train_X.to_csv(settings.MEDIA_ROOT + '/documents/train_encode.csv')
 
-    # df_solution = pd.read_csv(settings.MEDIA_ROOT + '/documents/Solution.csv')
-
-    return test_X.head().to_html(classes="table", index=False)
+    return test_X.head().to_html(classes="table table-bordered", index=False)
 
 
-# plot chart 
+def units_per_product(df):
+    """
+    metodo para calcular el total de unidades vendidas por cada producto
+    :param: dataframe
+    :return: dataframe
+    """
+    # filtro variables del problema
+    df_one = df.filter(['Product_ID', 'User_ID'], axis=1).groupby(['Product_ID']).count()
+    df_one = df_one.reset_index()
+    # defino etiquetas y ordeno el dataframe
+    df_one.columns = ['Product_ID', 'Unidades x Producto']
+    df_one = df_one.sort_values('Unidades x Producto', ascending=False)
+    return df_one
 
+
+def top_sales(df):
+    """
+    metodo para calcular el valor de las ventas de cada producto
+    :param: dataframe
+    :return: dataframe
+    """
+    # problema de formato de numero al leer el archivo csv 
+    df['Purchase'] = df['Purchase'].apply(lambda x: x.replace('.', ''))
+    # filtro variables del problema
+    df = df.filter(['Product_ID', 'Purchase'], axis=1)
+    df['Purchase'] = df['Purchase'].astype(int)
+    df_two = df.groupby(['Product_ID']).sum()
+    df_two = df_two.reset_index()
+    df_two.Purchase = df_two.Purchase.apply(lambda x: round(x))
+     # defino etiquetas y ordeno el dataframe
+    df_two.columns = ['Product_ID', 'Valor Ventas']
+    df_two = df_two.sort_values('Valor Ventas', ascending=False)
+    return df_two
+
+
+def top_user(df):
+    """
+    metodo para calcular el top de compradores
+    :param: dataframe
+    :return: dataframe
+    """
+    df['Purchase'] = df['Purchase'].apply(lambda x: x.replace('.', ''))
+    df = df.filter(['User_ID', 'Purchase'], axis=1)
+
+    df['Purchase'] = df['Purchase'].astype(int)
+
+    df_three = df.groupby(['User_ID']).sum()
+    df_three = df_three.reset_index()
+    df_three.Purchase = df_three.Purchase.apply(lambda x: round(x))
+    df_three = df_three.sort_values('Purchase', ascending=False)
+    df_three.columns = ['Usuario', 'Valor compras']
+    return df_three

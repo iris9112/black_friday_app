@@ -1,7 +1,7 @@
 {% extends 'app/base.html' %}
 
 {% load static %}
-
+{% load humanize %}
 {% block title %}Inicio{% endblock %}
 
 {% block content %}
@@ -19,53 +19,48 @@
             <li class="breadcrumb-item active">Tables</li>
           </ol>
           <div class="card mb-3">
-            <div class="card-head table-responsive">
-              {{preview|safe }}
+            <div class="card-header">
+                <i class="fa fa-table"></i>
+                  Previsualizacion dataframe
+            </div>
+            <div class="card-body table-responsive">
+               {{preview|safe|intcomma }}
             </div>
           </div>
 
-          <!-- DataTables Example 
+          <!-- Pregunta uno -->
           <div class="card mb-3">
-            <div class="card-header">
-              <i class="fas fa-table"></i>
-              Data Table Example</div>
-            <div class="card-body">
-              <div class="table-responsive">
-                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                  <thead>
-                    <tr>
-                      <th>Name</th>
-                      <th>Position</th>
-                      <th>Office</th>
-                      <th>Age</th>
-                      <th>Start date</th>
-                      <th>Salary</th>
-                    </tr>
-                  </thead>               
-                  <tbody>
-                    <tr>
-                      <td>Michael Bruce</td>
-                      <td>Javascript Developer</td>
-                      <td>Singapore</td>
-                      <td>29</td>
-                      <td>2011/06/27</td>
-                      <td>$183,000</td>
-                    </tr>
-                    <tr>
-                      <td>Donna Snider</td>
-                      <td>Customer Support</td>
-                      <td>New York</td>
-                      <td>27</td>
-                      <td>2011/01/25</td>
-                      <td>$112,000</td>
-                    </tr>
-                  </tbody>
-                </table>
+              <div class="card-header">
+                  <i class="fa fa-table"></i>
+                    Unidades que se venderan por producto (Top 10)
               </div>
-            </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+              <div class="card-body table-responsive text-center" style="width:50%;">
+                {{df_one|safe|intcomma}}
+              </div>
           </div>
-        -->
+
+          <!-- Pregunta dos -->
+          <div class="card mb-3">
+              <div class="card-header">
+                  <i class="fa fa-table"></i>
+                    Total de ventas por producto (Top 10)
+              </div>
+              <div class="card-body table-responsive text-center" style="width:50%;">
+                {{df_two|safe|intcomma}}
+              </div>
+          </div>
+
+          <!-- Pregunta tres -->
+          <div class="card mb-3">
+              <div class="card-header">
+                  <i class="fa fa-table"></i>
+                    Top de compradores
+              </div>
+              <div class="card-body table-responsive text-center" style="width:50%;">
+                {{df_three|safe|intcomma:False}}
+              </div>
+          </div>
+ 
 
           <p class="small text-center text-muted my-5">
             <em>More table examples coming soon...</em>

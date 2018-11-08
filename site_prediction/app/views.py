@@ -3,11 +3,9 @@ from django.shortcuts import render_to_response, render
 from django.views.generic.base import TemplateView
 from django.conf import settings
 
-from bokeh.plotting import figure, output_file, show 
-from bokeh.embed import components
-
 from .models import Document
-from .utils import previewDataFrame, prediction, read_csv
+from .utils import (previewDataFrame, prediction, read_csv, units_per_product,
+                   top_sales, top_user)
 
 # Create your views here.
 
@@ -59,7 +57,20 @@ class TablesView(TemplateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         df = read_csv('solution.csv')
-        context['preview'] = df.head().to_html(classes="table", index=False)
+        context['preview'] = df.head().to_html(classes="table table-bordered", index=False)
+        context['df_one'] = units_per_product(df).head(10).to_html(
+                                                                    classes="table table-bordered", 
+                                                                    index=False
+                                                                   )
+        context['df_two'] = top_sales(df).head(10).to_html(
+                                                            classes="table table-bordered", 
+                                                            index=False
+                                                            )
+
+        context['df_three'] = top_user(df).head(10).to_html(
+                                                            classes="table table-bordered", 
+                                                            index=False
+                                                            )
 
         return context
     
