@@ -19,7 +19,7 @@ scipy==1.1.0
 seaborn==0.9.0
 static3==0.7.0
 tornado==5.1
-urllib3==1.13.1
+urllib3==1.26.5
 xgboost==0.80
 xlrd==1.1.0
 
